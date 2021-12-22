@@ -48,4 +48,5 @@ docker run -p 80:80 -d --rm --name mvcmovie -e APP_MESSAGE='on Docker' wickylim1
 ```
 
 
-making some changes on master
+making changes on both master and dev-branch
+
