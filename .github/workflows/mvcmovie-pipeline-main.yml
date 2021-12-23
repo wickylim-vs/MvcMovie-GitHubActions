@@ -77,6 +77,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/uem-mvcmovie:${GITHUB_SHA}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/uem-mvcmovie:${{ GITHUB_SHA }}
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/uem-mvcmovie:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/uem-mvcmovie:buildcache,mode=max
