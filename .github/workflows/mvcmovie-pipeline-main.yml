@@ -59,6 +59,7 @@ jobs:
 
   build-push-docker-image:
     name: Build Docker Image and Push to Docker Hub
+    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
