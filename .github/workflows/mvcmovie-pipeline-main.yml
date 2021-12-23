@@ -1,13 +1,12 @@
-name: mvcmovie-pipeline
+name: mvcmovie-pipeline-main-branch
 
 on: 
   push:
-    branches-ignore:
+    branches:
       - 'main'
-      - 'release**'
 
 jobs:
-  build:
+  build-and-test:
     name: Build and Test Application
     runs-on: ubuntu-latest
 
