@@ -1,6 +1,10 @@
 name: mvcmovie-pipeline
 
-on: push
+on: 
+  push:
+    branches-ignore:
+      - 'main'
+      - 'release**'
 
 jobs:
   build:
