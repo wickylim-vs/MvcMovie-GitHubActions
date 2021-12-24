@@ -76,3 +76,8 @@ making changes on both master and dev-branch
 
 Unit test reference: https://docs.microsoft.com/en-us/dotnet/core/tutorials/testing-with-cli#organizing-and-testing-using-the-newtypes-pets-sample
 Reference (exclude unit test on Release build): https://stackoverflow.com/a/56646051/2963461
+
+
+
+
+Make changed on READEME on main branch
