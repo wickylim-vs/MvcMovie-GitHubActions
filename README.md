@@ -79,5 +79,4 @@ Reference (exclude unit test on Release build): https://stackoverflow.com/a/5664
 
 
 
-
-Make changed on READEME on main branch
+Make changes on both main branch and feature-1 branch
