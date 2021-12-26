@@ -41,6 +41,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
+    - name: Uninstall scanner
+      run: dotnet tool install --global dotnet-sonarscanner
+      continue-on-error: true
+
     - name: Sonarqube Begin
       run: | 
         dotnet tool install --global dotnet-sonarscanner
