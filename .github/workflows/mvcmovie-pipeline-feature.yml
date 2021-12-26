@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build and Test Application
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, onprem]
 
     steps:
     - uses: actions/checkout@v2
