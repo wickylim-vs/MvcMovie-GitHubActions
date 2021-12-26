@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-test:
     name: Build and Test Application
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, onprem]
 
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
 
   run-sonarqube-scan:
     name: Run SonarQube Scan
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, onprem]
 
     steps:
     - uses: actions/checkout@v2.2.0
@@ -42,9 +42,7 @@ jobs:
       run: dotnet restore
 
     - name: Sonarqube Begin
-      run: | 
-        dotnet tool install --global dotnet-sonarscanner
-        dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+      run: dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
 
     - name: Build
       run: dotnet build
@@ -60,7 +58,7 @@ jobs:
   build-push-docker-image:
     name: Build Docker Image and Push to Docker Hub
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, onprem]
 
     steps:
       - name: Checkout 
