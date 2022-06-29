@@ -8,7 +8,8 @@ on:
 jobs:
   build-and-test:
     name: Build and Test Application
-    runs-on: [self-hosted, onprem]
+#     runs-on: [self-hosted, onprem]
+    runs-on: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +26,8 @@ jobs:
 
   run-sonarqube-scan:
     name: Run SonarQube Scan
-    runs-on: [self-hosted, onprem]
+#     runs-on: [self-hosted, onprem]
+    runs-on: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v2.2.0
       with:
@@ -51,7 +53,8 @@ jobs:
   build-push-docker-image:
     name: Build Docker Image and Push to Docker Hub
     needs: build-and-test
-    runs-on: [self-hosted, onprem]
+#     runs-on: [self-hosted, onprem]
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Checkout 
