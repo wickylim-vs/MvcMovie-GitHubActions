@@ -1,0 +1,16 @@
+name: mvcmovie-pipeline-release-branches
+
+on: 
+  push:
+    branches:
+      - 'release**'
+
+jobs:
+  build:
+    name: Get Release Version
+    runs-on: [self-hosted, onprem]
+
+    steps:
+    - name: Extract release version from branch name
+      run: echo "$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_release_version
