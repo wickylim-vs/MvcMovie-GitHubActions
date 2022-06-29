@@ -39,16 +39,15 @@ jobs:
         dotnet-version: '6.0.x'
     - name: Install dependencies
       run: dotnet restore
-    - name: Sonarqube Begin
-      run: dotnet /home/wickylimvs16/sonar-scanner-msbuild/SonarScanner.MSBuild.dll begin /k:${{ secrets.SONAR_PROJECT_KEY }} /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-    - name: Build
-      run: dotnet build
-    - name: Test with the dotnet CLI
-      run: dotnet test --settings coverlet.runsettings --logger:trx
+    - name: Sonarqube Scan
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+        dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+        dotnet build
+        dotnet test --settings coverlet.runsettings --logger:trx
+        dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_LOGIN_TOKEN }}"
       env:
         ASPNETCORE_ENVIRONMENT: Development
-    - name: Sonarqube end
-      run: dotnet /home/wickylimvs16/sonar-scanner-msbuild/SonarScanner.MSBuild.dll end /d:sonar.login="${{ secrets.SONAR_LOGIN_TOKEN }}"
 
   build-push-docker-image:
     name: Build Docker Image and Push to Docker Hub
