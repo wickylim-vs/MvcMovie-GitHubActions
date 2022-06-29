@@ -26,32 +26,25 @@ jobs:
   run-sonarqube-scan:
     name: Run SonarQube Scan
     runs-on: [self-hosted, onprem]
-
     steps:
     - uses: actions/checkout@v2.2.0
       with:
         # Disabling shallow clone is recommended for improving relevancy of sonarqube reporting
         fetch-depth: 0
-
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-
     - name: Install dependencies
       run: dotnet restore
-
     - name: Sonarqube Begin
       run: dotnet /home/wickylimvs16/sonar-scanner-msbuild/SonarScanner.MSBuild.dll begin /k:${{ secrets.SONAR_PROJECT_KEY }} /d:sonar.host.url=${{ secrets.SONAR_HOST_URL }} /d:sonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} /d:sonar.cs.vstest.reportsPaths="**/*.trx" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
-
     - name: Build
       run: dotnet build
-
     - name: Test with the dotnet CLI
       run: dotnet test --settings coverlet.runsettings --logger:trx
       env:
         ASPNETCORE_ENVIRONMENT: Development
-
     - name: Sonarqube end
       run: dotnet /home/wickylimvs16/sonar-scanner-msbuild/SonarScanner.MSBuild.dll end /d:sonar.login="${{ secrets.SONAR_LOGIN_TOKEN }}"
 
